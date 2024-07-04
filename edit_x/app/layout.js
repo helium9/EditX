@@ -1,6 +1,13 @@
 // import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -10,10 +17,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ClerkProvider>
     <html lang="en">
+      
       <body>
+
         <Providers>{children}</Providers>
+        
       </body>
     </html>
+    </ClerkProvider>
   );
 }

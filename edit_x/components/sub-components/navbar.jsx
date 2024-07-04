@@ -4,9 +4,18 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
+  
   Button,
 } from "@nextui-org/react";
+import { SignIn } from "@clerk/nextjs";
+import {
+    ClerkProvider,
+    SignInButton,
+    SignedIn,
+    SignedOut,
+    UserButton
+  } from '@clerk/nextjs'
+import Link from "next/link";
 
 export default function NavigationBar() {
   return (
@@ -17,10 +26,23 @@ export default function NavigationBar() {
         </p>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
+        <NavbarItem className="hidden lg:flex gap-2">
           <Button color="#E6F1FE" variant="ghost">
-            log out
+            <Link href="/sign-up">Sign Up</Link>
+            
           </Button>
+          
+          <SignedOut>
+            <Button color="#E6F1FE" variant="ghost">
+                <SignInButton />
+            </Button>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+            
+          
+          
         </NavbarItem>
       </NavbarContent>
     </Navbar>

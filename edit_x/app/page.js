@@ -1,23 +1,30 @@
 "use client";
 
-import NavigationBar from "@/components/sub-components/navbar";
-import UlilityBar from "@/components/sub-components/utilityBar";
+import NavigationBar from "../components/sub-components/navbar";
+import UlilityBar from "../components/sub-components/utilityBar";
 import Editor from "@monaco-editor/react";
-import InputOutput from "@/components/sub-components/textarea";
+import InputOutput from "../components/sub-components/textarea";
+import { useAuth,useUser } from "@clerk/nextjs";
 import { useState, useRef, useCallback } from "react";
 
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import { Button } from "@/components/ui/button";
+} from "../components/ui/resizable";
+import { Button } from "../components/ui/button";
 
 export default function Home() {
   const [editorHeight, setEditorHeight] = useState("100%");
   const [consoleHeight, setConsoleHeight] = useState(0);
   const [showConsole, setShowConsole] = useState(false);
   const consolePanelRef = useRef(null);
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
+  const { isSignedIn, user } = useUser();
+
+  // if (!isLoaded || !userId) {
+  //   return null;
+  // }
 
   const handleResize = useCallback((_, __, ___, delta) => {
     setEditorHeight((prevHeight) => {
@@ -45,6 +52,10 @@ export default function Home() {
 
   return (
     <main className="dark text-foreground flex flex-col h-screen">
+       {user && <div className="text-black ">
+          Hello, {userId} your current active session is {sessionId}{getToken}<br></br>{console.log(user,"yup ")}
+          the user is {user.username} and your email is {user.emailAddresses[0].emailAddress}
+      </div>}
       <NavigationBar />
       <UlilityBar />
       <ResizablePanelGroup className="flex-1" direction="vertical">

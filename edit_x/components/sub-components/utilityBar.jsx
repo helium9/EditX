@@ -7,9 +7,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { Avatar, AvatarGroup } from "@nextui-org/react";
 
 export default function UlilityBar() {
