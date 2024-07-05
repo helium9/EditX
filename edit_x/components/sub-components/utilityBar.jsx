@@ -14,11 +14,13 @@ import { Avatar, AvatarGroup } from "@nextui-org/react";
 
 export default function UlilityBar() {
   return (
-    <div className="flex flex-col md:flex-row justify-between w-full gap-x-6 h-16 bg-zinc-800">
+    <div className="flex flex-col md:flex-row justify-between w-full gap-x-6 h-16 bg-zinc-800 text-slate-200">
       <div className="flex flex-col md:flex-row justify-start w-full gap-x-6 h-16 bg-zinc-800 p-4">
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex p-2 items-center rounded-md">
-            Font
+          <DropdownMenuTrigger className="flex items-center rounded-md">
+            <Button variant="link" className="text-slate-200">
+              Font
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-36">
             <DropdownMenuItem>10px</DropdownMenuItem>
@@ -28,8 +30,10 @@ export default function UlilityBar() {
           </DropdownMenuContent>
         </DropdownMenu>
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex p-2 items-center rounded-md">
-            Language
+          <DropdownMenuTrigger className="flex items-center rounded-md">
+            <Button variant="link" className="text-slate-200">
+              Langauge
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-72 overflow-auto">
             <DropdownMenuItem>ABAP</DropdownMenuItem>
@@ -37,11 +41,21 @@ export default function UlilityBar() {
             <DropdownMenuItem>Ada</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button variant="ghost">Push</Button>
-        <Button variant="ghost">Pull</Button>
-        <Button variant="ghost">Run</Button>
-        <Button variant="ghost">Share</Button>
-        <Button variant="ghost">Export</Button>
+        <Button variant="link" className="text-slate-200">
+          Push
+        </Button>
+        <Button variant="link" className="text-slate-200">
+          Pull
+        </Button>
+        <Button variant="link" className="text-slate-200">
+          Run
+        </Button>
+        <Button variant="link" className="text-slate-200">
+          Share
+        </Button>
+        <Button variant="link" className="text-slate-200">
+          Export
+        </Button>
       </div>
       <div className="hidden md:flex flex-col md:flex-row w-full justify-end pr-12">
         <AvatarGroup isBordered size="sm" max={5}>

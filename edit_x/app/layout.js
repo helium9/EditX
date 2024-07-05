@@ -6,9 +6,11 @@ import {
   SignInButton,
   SignedIn,
   SignedOut,
-  UserButton
-} from '@clerk/nextjs'
+  UserButton,
+} from "@clerk/nextjs";
 // const inter = Inter({ subsets: ["latin"] });
+
+const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export const metadata = {
   title: "Create Next App",
@@ -17,15 +19,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-    <html lang="en">
-      
-      <body>
-
-        <Providers>{children}</Providers>
-        
-      </body>
-    </html>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <html lang="en">
+        <body>
+          <Providers>{children}</Providers>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

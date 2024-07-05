@@ -54,7 +54,9 @@ export default function Sessions() {
       <Sheet>
         <NavigationBar>
           <SheetTrigger asChild>
-            <Button variant="secondary">Button</Button>
+            <Button variant="link" className="text-slate-200">
+              Button
+            </Button>
           </SheetTrigger>
         </NavigationBar>
         <SheetContent>
