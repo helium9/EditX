@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 export default function InputOutput() {
   return (
     <div className="flex flex-row gap-x-4 overflow-auto">
-      <div className="flex flex-col w-full gap-y-4">
+      <div className="flex flex-col w-full gap-y-4">  
         <Label htmlFor="input" className="m-2">
           Inputs
         </Label>

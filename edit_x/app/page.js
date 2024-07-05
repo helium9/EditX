@@ -45,7 +45,15 @@ export default function Home() {
 
   return (
     <main className="dark text-foreground flex flex-col h-screen">
-      <NavigationBar />
+      <NavigationBar>
+        <Button
+          color="#E6F1FE"
+          variant="destructive"
+          className="text-slate-200"
+        >
+          logout
+        </Button>
+      </NavigationBar>
       <UlilityBar />
       <ResizablePanelGroup className="flex-1" direction="vertical">
         <ResizablePanel
