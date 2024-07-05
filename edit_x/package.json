@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.2.1",
     "@monaco-editor/react": "^4.6.0",
     "@nextui-org/navbar": "^2.0.32",
     "@nextui-org/react": "^2.4.1",

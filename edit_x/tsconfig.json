@@ -16,21 +16,8 @@
       {
         "name": "next"
       }
-    ],
-    "baseUrl": ".", // Add this line
-    "paths": {
-      // Add this block
-      "@/*": ["./*"],
-      "@/lib/*": ["./lib/*"],
-      "@/components/*": ["./components/*"]
-    }
+    ]
   },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "app/dashboard/page.jsx"
-  ],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

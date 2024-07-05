@@ -4,7 +4,11 @@ import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
 
+<<<<<<< HEAD
 import { cn } from "../../lib/utils";
+=======
+import { cn } from "../../lib/utils"
+>>>>>>> bffbf4f1fd0704536f912d2c747da6229424c9bf
 
 const Sheet = SheetPrimitive.Root;
 
