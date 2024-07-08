@@ -18,9 +18,7 @@ export default function UlilityBar() {
       <div className="flex flex-col md:flex-row justify-start w-full gap-x-6 h-16 bg-zinc-800 p-4">
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center rounded-md">
-            <Button variant="link" className="text-slate-200">
-              Font
-            </Button>
+            Font
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-36">
             <DropdownMenuItem>10px</DropdownMenuItem>
@@ -31,9 +29,7 @@ export default function UlilityBar() {
         </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center rounded-md">
-            <Button variant="link" className="text-slate-200">
-              Langauge
-            </Button>
+            Langauge
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-72 overflow-auto">
             <DropdownMenuItem>ABAP</DropdownMenuItem>
