@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useState, useRef, useCallback } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,11 +8,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 import { Button } from "../ui/button";
 import { Avatar, AvatarGroup } from "@nextui-org/react";
 
-export default function UlilityBar() {
+export default function UlilityBar({ room, setRoom }) {
+  const roomRef = useRef(room);
+  const handleInputChange = (e) => {
+    roomRef.current = e.target.value;
+  };
+
   return (
     <div className="flex flex-col md:flex-row justify-between w-full gap-x-6 h-16 bg-zinc-800 text-slate-200">
       <div className="flex flex-col md:flex-row justify-start w-full gap-x-6 h-16 bg-zinc-800 p-4">
@@ -29,7 +45,7 @@ export default function UlilityBar() {
         </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center rounded-md">
-            Langauge
+            Language
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-72 overflow-auto">
             <DropdownMenuItem>ABAP</DropdownMenuItem>
@@ -52,6 +68,49 @@ export default function UlilityBar() {
         <Button variant="link" className="text-slate-200">
           Export
         </Button>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="link" className="text-slate-200">
+              Join Room
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Share link</DialogTitle>
+              <DialogDescription>
+                Anyone who has this link will be able to view this.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center space-x-2">
+              <div className="grid flex-1 gap-2">
+                Room ID:
+                <Input
+                  id="link"
+                  defaultValue={room}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <Button
+                type="submit"
+                size="sm"
+                className="px-3"
+                onClick={() => {
+                  setRoom(roomRef.current);
+                }}
+              >
+                Submit
+              </Button>
+            </div>
+            <DialogFooter className="sm:justify-start">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="hidden md:flex flex-col md:flex-row w-full justify-end pr-12">
         <AvatarGroup isBordered size="sm" max={5}>

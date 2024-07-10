@@ -1,18 +1,22 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import NavigationBar from "../components/sub-components/navbar";
 import UlilityBar from "../components/sub-components/utilityBar";
-import Editor from "@monaco-editor/react";
 import InputOutput from "../components/sub-components/textarea";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { useState, useRef, useCallback } from "react";
-
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "../components/ui/resizable";
 import { Button } from "../components/ui/button";
+// import CollabEditor from "../components/CollabEditor";
+const MonacoEditor = dynamic(() => import('../components/CollaborativeEditor'), { ssr: false });
+import { useClerk } from "@clerk/nextjs";
+
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Home() {
   const [editorHeight, setEditorHeight] = useState("100%");
@@ -21,7 +25,9 @@ export default function Home() {
   const consolePanelRef = useRef(null);
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { isSignedIn, user } = useUser();
-
+  const clerk = useClerk();
+  const [room, setRoom] = useState(uuidv4());
+  // console.log("main", room);
   // if (!isLoaded || !userId) {
   //   return null;
   // }
@@ -63,7 +69,7 @@ export default function Home() {
         </div>
       )}
       <NavigationBar />
-      <UlilityBar />
+      <UlilityBar room = {room} setRoom={setRoom}/>
       <ResizablePanelGroup className="flex-1" direction="vertical">
         <ResizablePanel
           defaultSize={70}
@@ -72,12 +78,7 @@ export default function Home() {
           size={editorHeight}
           onResizeStop={handleResize}
         >
-          <Editor
-            height="100%"
-            theme="vs-dark"
-            defaultLanguage="javascript"
-            defaultValue="// some comment"
-          />
+          {clerk.loaded && room != undefined && <MonacoEditor room = {room}/>}
         </ResizablePanel>
         {showConsole && ( // Conditionally render the console
           <>
