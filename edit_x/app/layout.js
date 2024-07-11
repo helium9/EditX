@@ -1,6 +1,8 @@
 // import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import {SocketProvider} from "@/components/context/socketprovider"
+
 import {
   ClerkProvider,
   SignInButton,
@@ -18,11 +20,18 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+ 
   return (
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <html lang="en">
         <body>
-          <Providers>{children}</Providers>
+           
+          <Providers>
+           {children}
+          
+
+          </Providers>
+          
         </body>
       </html>
     </ClerkProvider>
