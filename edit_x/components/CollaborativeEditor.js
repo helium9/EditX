@@ -4,9 +4,9 @@ import * as Y from 'yjs';
 import { WebsocketProvider } from 'y-websocket';
 import { MonacoBinding } from 'y-monaco';
 
-export default function CollaborativeEditor({room}) {
+export default function CollaborativeEditor({room, editorRef}) {
   // console.log("curr room", room);
-  const editorRef = useRef(null);
+  // const editorRef = useRef(null); //state lifted to parent.
   const [doc, setDoc] = useState(null);
   const [provider, setProvider] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState('Disconnected');
@@ -49,10 +49,11 @@ export default function CollaborativeEditor({room}) {
       <div>WebSocket Status: {connectionStatus}</div>
       <Editor
         height="90vh"
-        defaultLanguage="javascript"
+        defaultLanguage="cpp"
         defaultValue="// Start coding"
         onMount={handleEditorDidMount}
       />
+      {/* default language is hardcoded */}
     </div>
   );
 }

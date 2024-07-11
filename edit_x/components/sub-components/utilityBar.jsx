@@ -23,9 +23,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Avatar, AvatarGroup } from "@nextui-org/react";
 
-export default function UlilityBar({ room, setRoom }) {
+export default function UlilityBar({ room, setRoom, handleSubmitCode}) {
   const roomRef = useRef(room);
-  const handleInputChange = (e) => {
+  const handleRoomChange = (e) => {
     roomRef.current = e.target.value;
   };
 
@@ -59,7 +59,7 @@ export default function UlilityBar({ room, setRoom }) {
         <Button variant="link" className="text-slate-200">
           Pull
         </Button>
-        <Button variant="link" className="text-slate-200">
+        <Button variant="link" className="text-slate-200" onClick={handleSubmitCode}>
           Run
         </Button>
         <Button variant="link" className="text-slate-200">
@@ -88,7 +88,7 @@ export default function UlilityBar({ room, setRoom }) {
                 <Input
                   id="link"
                   defaultValue={room}
-                  onChange={handleInputChange}
+                  onChange={handleRoomChange}
                 />
               </div>
               <Button
@@ -97,6 +97,7 @@ export default function UlilityBar({ room, setRoom }) {
                 className="px-3"
                 onClick={() => {
                   setRoom(roomRef.current);
+                  //it would be wise to send the user data to DB that they are successfully in the room for displaying participants.
                 }}
               >
                 Submit

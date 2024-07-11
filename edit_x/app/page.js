@@ -1,6 +1,6 @@
 "use client";
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import NavigationBar from "../components/sub-components/navbar";
 import UlilityBar from "../components/sub-components/utilityBar";
 import InputOutput from "../components/sub-components/textarea";
@@ -13,10 +13,13 @@ import {
 } from "../components/ui/resizable";
 import { Button } from "../components/ui/button";
 // import CollabEditor from "../components/CollabEditor";
-const MonacoEditor = dynamic(() => import('../components/CollaborativeEditor'), { ssr: false });
+const MonacoEditor = dynamic(
+  () => import("../components/CollaborativeEditor"),
+  { ssr: false }
+);
 import { useClerk } from "@clerk/nextjs";
-
-import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
   const [editorHeight, setEditorHeight] = useState("100%");
@@ -31,6 +34,7 @@ export default function Home() {
   // if (!isLoaded || !userId) {
   //   return null;
   // }
+  const editorRef = useRef(null);
 
   const handleResize = useCallback((_, __, ___, delta) => {
     setEditorHeight((prevHeight) => {
@@ -55,6 +59,43 @@ export default function Home() {
       }
     }
   };
+  const handleSubmitCode = () => {
+    // console.log(editorRef.current.getValue());
+    axios
+      .post(
+        "http://localhost:2358/submissions",
+        {
+          source_code: editorRef.current.getValue(),
+          language_id: 54,
+          number_of_runs: null,
+          stdin: null, //Input stream
+          expected_output: null,
+          cpu_time_limit: 2,
+          cpu_extra_time: 1,
+          wall_time_limit: null,
+          memory_limit: null,
+          stack_limit: null,
+          max_processes_and_or_threads: null,
+          enable_per_process_and_thread_time_limit: null,
+          enable_per_process_and_thread_memory_limit: null,
+          max_file_size: null,
+          enable_network: null,
+        },
+        { params: { wait: true } }
+      ) //wait params is set to true which synchronously waits for the output directly and not give a tracking token instead. This however is not recommended as per docs due to scaling issues.
+      .then((res) => {
+        console.log(res.data); //currently getting output directly as wait=true.
+        // return res.data.token;
+      });
+    // .then((res) => {
+    //   // console.log(editorRef.current.getPosition());
+    //   setTimeout(() => {
+    //     axios.get(`http://localhost:2358/submissions/${res}`).then((res) => {
+    //       console.log(res.data.stdout); //currently output is displayed in the console.
+    //     });
+    //   }, 5000);
+    // });
+  };
 
   return (
     <main className="text-foreground flex flex-col h-screen">
@@ -69,7 +110,11 @@ export default function Home() {
         </div>
       )}
       <NavigationBar />
-      <UlilityBar room = {room} setRoom={setRoom}/>
+      <UlilityBar
+        room={room}
+        setRoom={setRoom}
+        handleSubmitCode={handleSubmitCode}
+      />
       <ResizablePanelGroup className="flex-1" direction="vertical">
         <ResizablePanel
           defaultSize={70}
@@ -78,7 +123,9 @@ export default function Home() {
           size={editorHeight}
           onResizeStop={handleResize}
         >
-          {clerk.loaded && room != undefined && <MonacoEditor room = {room}/>}
+          {clerk.loaded && room != undefined && (
+            <MonacoEditor room={room} editorRef={editorRef} />
+          )}
         </ResizablePanel>
         {showConsole && ( // Conditionally render the console
           <>
