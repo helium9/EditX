@@ -8,12 +8,7 @@ import useSocket from '../../../components/context/useSocket';
 // import { useSocket } from '../../provider2'
 
 const page = () => {
-    // const {socket}=useSocket();
-    // const {socket}=useState();
-    
-    // const [socket,setsocket]=useState(null);
-    // const {sendMessage,messages}=useSocket();
-    
+
     const [message,setMessage]=useState('');
     const {socket,messages}=useSocket("http://localhost:8001");
     const sendMessage=(msg)=>{

@@ -81,7 +81,7 @@ export default function Home() {
           max_file_size: null,
           enable_network: null,
         },
-        { params: { wait: true } }
+        { params: { wait: true } }// look at colon (:), its not recognizing need to encode in base64.
       ) //wait params is set to true which synchronously waits for the output directly and not give a tracking token instead. This however is not recommended as per docs due to scaling issues.
       .then((res) => {
         console.log(res.data); //currently getting output directly as wait=true.

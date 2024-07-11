@@ -15,7 +15,9 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws, req) => {
     // Setup the WebSocket connection for Yjs
+
     setupWSConnection(ws, req);
+   
 });
 
 // Start the HTTP server

@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import Roompage from '../../../../components/webrtc_components/roompage'
+import Roompage from '../../../../components/context/socketprovider'
 const page = () => {
   return (
     <div>
