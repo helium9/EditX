@@ -24,21 +24,29 @@ const sub=new redis(
 );
 
 app.use(bodyparser.json());
-sub.subscribe("MESSAGES");
+var room_for_message="0";// default room for redis
 io.on('connection',socket=>{
-    
-
-    socket.on("message-sent",async (msg)=>{
-        console.log(msg);
-        await pub.publish("MESSAGES",msg);
-        
+   
+    socket.on("message-sent",async (msg,room,username)=>{
+        sub.subscribe(`MESSAGE/${room}`);
+        room_for_message=room;
+        await pub.publish(`MESSAGE/${room}`,JSON.stringify({"message":msg,"username":username}));  // this is where you can store in the redis database, for more features append the same in the parameter json.  
 
     })
+    socket.on("join-room",(room)=>{
+        socket.join(room);
+    })
+
 });
-sub.on('message',(channel,message)=>{
-    if(channel === "MESSAGES"){
-        io.emit("message",{message});
+// this is the redis code, if you have added some information in pub.publish then it will come her in mes variable after parsing.
+sub.on(`message`,async (channel,message)=>{
+    const mes=await JSON.parse(message);
+    if(channel === `MESSAGE/${room_for_message}`){
+        // console.log(room_for_message,"from server");
+        io.sockets.in(room_for_message).emit(`message`,mes.message,mes.username);// send whatever more info needed here.
     }
 })
+
+
 app.listen(8000,()=>console.log("HTTP server running"));
 io.listen(8001);

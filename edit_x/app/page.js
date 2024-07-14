@@ -12,6 +12,7 @@ import {
   ResizablePanelGroup,
 } from "../components/ui/resizable";
 import { Button } from "../components/ui/button";
+import Chat from "../components/chat";
 // import CollabEditor from "../components/CollabEditor";
 const MonacoEditor = dynamic(
   () => import("../components/CollaborativeEditor"),
@@ -20,6 +21,7 @@ const MonacoEditor = dynamic(
 import { useClerk } from "@clerk/nextjs";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+
 
 export default function Home() {
   const [editorHeight, setEditorHeight] = useState("100%");
@@ -30,6 +32,7 @@ export default function Home() {
   const { isSignedIn, user } = useUser();
   const clerk = useClerk();
   const [room, setRoom] = useState(uuidv4());
+  const [ChatOpen, setChatOpen] = useState(false);
   // console.log("main", room);
   // if (!isLoaded || !userId) {
   //   return null;
@@ -114,6 +117,8 @@ export default function Home() {
         room={room}
         setRoom={setRoom}
         handleSubmitCode={handleSubmitCode}
+        ChatOpen={false}
+        setChatOpen={setChatOpen}
       />
       <ResizablePanelGroup className="flex-1" direction="vertical">
         <ResizablePanel
@@ -160,6 +165,11 @@ export default function Home() {
           </Button>
         </div>
       )}
+      {console.log("ChatOpen", ChatOpen)}
+      {
+        ChatOpen && 
+        <div><Chat room={room} /></div>
+      }
     </main>
   );
 }

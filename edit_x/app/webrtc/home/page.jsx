@@ -3,34 +3,17 @@ import React,{useState,useEffect} from 'react'
 import { io } from "socket.io-client";
 import { useRouter } from 'next/navigation'
 import useSocket from '../../../components/context/useSocket';
-// import {useSocket} from "../../../components/context/socketprovider"
+import Chat from '../../../components/chat'
 
-// import { useSocket } from '../../provider2'
 
 const page = () => {
 
-    const [message,setMessage]=useState('');
-    const {socket,messages}=useSocket("http://localhost:8001");
-    const sendMessage=(msg)=>{
-      console.log("clicked")
-        socket.emit("message-sent",msg);
-        console.log(messages, "lop");
-    }
-   
     
     
      
   return (
     <div>
-        <input onChange={(e)=>{setMessage(e.target.value)}}placeholder='messaage..'></input>
-        <button onClick={e=>sendMessage(message)}>send</button>
-
-
-        <div>
-          {messages.map((e)=>{
-            return <li>{e}</li>
-          })}
-        </div>
+        <Chat room="12"/>
       
     </div>
   )
