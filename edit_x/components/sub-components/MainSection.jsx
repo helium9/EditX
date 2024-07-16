@@ -7,8 +7,9 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import InputOutput from "./textarea";
 import { Editor } from "@monaco-editor/react";
+import Chat from "../chat";
 
-const MainLayout = ({ defaultLayout = [320, 420, 200] }) => {
+const MainLayout = ({ defaultLayout = [320, 420, 200], roomId }) => {
   const [layout, setLayout] = useState([15, 85]);
   const [layout1, setLayout1] = useState([80, 20]);
   const collapsedContent = <InputOutput />;
@@ -22,7 +23,9 @@ const MainLayout = ({ defaultLayout = [320, 420, 200] }) => {
         buttonContent={"Reset"}
       >
         <div className="flex h-[200px] items-center justify-center p-6">
-          <span className="font-semibold">One</span>
+          <span className="font-semibold">
+            <Chat room={roomId} />
+          </span>
         </div>
       </ResizablePanel>
       <ResizableHandle className="bg-slate-100" />

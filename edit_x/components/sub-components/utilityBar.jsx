@@ -19,27 +19,29 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import Link  from "next/link";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { Avatar, AvatarGroup } from "@nextui-org/react";
-<<<<<<< HEAD
 
-export default function UlilityBar({ room, setRoom, handleSubmitCode }) {
-=======
 import Chat from "../chat";
-export default function UlilityBar({ room, setRoom, handleSubmitCode,ChatOpen,setChatOpen}) {
->>>>>>> 60066c2f5dbb61b87c11474fe923efc288cd49b6
+export default function UlilityBar({
+  room,
+  setRoom,
+  handleSubmitCode,
+  ChatOpen,
+  setChatOpen,
+}) {
   const roomRef = useRef(room);
-  const chatRef=useRef(ChatOpen);
+  const chatRef = useRef(ChatOpen);
   // const [chatopened,setchatopened]=useState(false);
   const handleRoomChange = (e) => {
     roomRef.current = e.target.value;
   };
   const handleChat = () => {
-
-    chatRef.current==true?chatRef.current=false:chatRef.current=true;
+    chatRef.current == true
+      ? (chatRef.current = false)
+      : (chatRef.current = true);
     setChatOpen(chatRef.current);
-    
   };
   return (
     <div className="flex flex-col md:flex-row justify-between w-full gap-x-6 h-16 bg-zinc-800 text-slate-200">
@@ -87,7 +89,6 @@ export default function UlilityBar({ room, setRoom, handleSubmitCode,ChatOpen,se
         <Button onClick={handleChat} variant="link" className="text-slate-200">
           chat
         </Button>
-       
 
         <Dialog>
           <DialogTrigger asChild>

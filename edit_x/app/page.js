@@ -18,7 +18,6 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import MainLayout from "../components/sub-components/MainSection";
 
-
 export default function Home() {
   const [showConsole, setShowConsole] = useState(false);
   const consolePanelRef = useRef(null);
@@ -26,11 +25,7 @@ export default function Home() {
   const { isSignedIn, user } = useUser();
   const clerk = useClerk();
   const [room, setRoom] = useState(uuidv4());
-<<<<<<< HEAD
-
-=======
   const [ChatOpen, setChatOpen] = useState(false);
->>>>>>> 60066c2f5dbb61b87c11474fe923efc288cd49b6
   // console.log("main", room);
   // if (!isLoaded || !userId) {
   //   return null;
@@ -89,7 +84,7 @@ export default function Home() {
           {getToken}
           <br />
           {console.log(user, "yup ")}
-          the user is {user.username} and your email is{" "}
+          the user is {user.username} and your email is
           {user.emailAddresses[0].emailAddress}
         </div>
       )}
@@ -103,7 +98,7 @@ export default function Home() {
       />
 
       <div className="flex h-screen flex-col items-center justify-center">
-        <MainLayout defaultLayout={defaultLayout} />
+        <MainLayout defaultLayout={defaultLayout} roomId={room} />
       </div>
 
       {/* <div className="flex-grow overflow-hidden">
@@ -128,16 +123,7 @@ export default function Home() {
             Open Console
           </Button>
         </div>
-<<<<<<< HEAD
       )} */}
-=======
-      )}
-      {console.log("ChatOpen", ChatOpen)}
-      {
-        ChatOpen && 
-        <div><Chat room={room} /></div>
-      }
->>>>>>> 60066c2f5dbb61b87c11474fe923efc288cd49b6
     </main>
   );
 }
