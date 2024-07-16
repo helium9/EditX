@@ -7,6 +7,7 @@ import InputOutput from "../components/sub-components/textarea";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "../components/ui/button";
+import Chat from "../components/chat";
 // import CollabEditor from "../components/CollabEditor";
 const MonacoEditor = dynamic(
   () => import("../components/CollaborativeEditor"),
@@ -17,6 +18,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import MainLayout from "../components/sub-components/MainSection";
 
+
 export default function Home() {
   const [showConsole, setShowConsole] = useState(false);
   const consolePanelRef = useRef(null);
@@ -24,7 +26,11 @@ export default function Home() {
   const { isSignedIn, user } = useUser();
   const clerk = useClerk();
   const [room, setRoom] = useState(uuidv4());
+<<<<<<< HEAD
 
+=======
+  const [ChatOpen, setChatOpen] = useState(false);
+>>>>>>> 60066c2f5dbb61b87c11474fe923efc288cd49b6
   // console.log("main", room);
   // if (!isLoaded || !userId) {
   //   return null;
@@ -92,6 +98,8 @@ export default function Home() {
         room={room}
         setRoom={setRoom}
         handleSubmitCode={handleSubmitCode}
+        ChatOpen={false}
+        setChatOpen={setChatOpen}
       />
 
       <div className="flex h-screen flex-col items-center justify-center">
@@ -120,7 +128,16 @@ export default function Home() {
             Open Console
           </Button>
         </div>
+<<<<<<< HEAD
       )} */}
+=======
+      )}
+      {console.log("ChatOpen", ChatOpen)}
+      {
+        ChatOpen && 
+        <div><Chat room={room} /></div>
+      }
+>>>>>>> 60066c2f5dbb61b87c11474fe923efc288cd49b6
     </main>
   );
 }
