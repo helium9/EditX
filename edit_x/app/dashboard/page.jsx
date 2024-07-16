@@ -12,55 +12,9 @@ import {
 } from "../../components/ui/sheet.jsx";
 import { Button } from "../../components/ui/button.jsx";
 import { SideBaroptions } from "../../components/sub-components/SideBarOptions.jsx";
-import { LineChart } from "../../components/sub-components/LineChart.jsx";
-import { PieChartComponent } from "../../components/sub-components/PieChart.jsx";
-
-const data = {
-  labels: [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ],
-  datasets: [
-    {
-      data: [86, 114, 106, 106, 107, 111, 133],
-      label: "Applied",
-      borderColor: "#3e95cd",
-      backgroundColor: "#7bb6dd",
-      fill: false,
-    },
-    {
-      data: [70, 90, 44, 60, 83, 90, 100],
-      label: "Accepted",
-      borderColor: "#3cba9f",
-      backgroundColor: "#71d1bd",
-      fill: false,
-    },
-    {
-      data: [10, 21, 60, 44, 17, 21, 17],
-      label: "Pending",
-      borderColor: "#ffa500",
-      backgroundColor: "#ffc04d",
-      fill: false,
-    },
-    {
-      data: [6, 3, 2, 2, 7, 0, 16],
-      label: "Rejected",
-      borderColor: "#c45850",
-      backgroundColor: "#d78f89",
-      fill: false,
-    },
-  ],
-};
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-};
+// import { PieChartComponent } from "../../components/sub-components/PieChart.jsx";
+import { DailyActivityChart } from "./components/AreaChart.jsx";
+import { LanguageUsed } from "./components/PieChart.jsx";
 
 export default function Page() {
   return (
@@ -94,10 +48,10 @@ export default function Page() {
 
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="bg-zinc-700 rounded-lg p-4 shadow-lg lg:w-2/3 aspect-video ml-4">
-          <LineChart data={data} options={options} />
+          <DailyActivityChart />
         </div>
         <div className="bg-zinc-700 rounded-lg p-4 shadow-lg lg:w-1/3 mr-4 flex justify-center items-center">
-          <PieChartComponent />
+          <LanguageUsed />
         </div>
       </div>
 

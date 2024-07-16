@@ -5,12 +5,7 @@ import NavigationBar from "../components/sub-components/navbar";
 import UlilityBar from "../components/sub-components/utilityBar";
 import InputOutput from "../components/sub-components/textarea";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { useState, useRef, useCallback } from "react";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "../components/ui/resizable";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "../components/ui/button";
 // import CollabEditor from "../components/CollabEditor";
 const MonacoEditor = dynamic(
@@ -20,45 +15,28 @@ const MonacoEditor = dynamic(
 import { useClerk } from "@clerk/nextjs";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import MainLayout from "../components/sub-components/MainSection";
 
 export default function Home() {
-  const [editorHeight, setEditorHeight] = useState("100%");
-  const [consoleHeight, setConsoleHeight] = useState(0);
   const [showConsole, setShowConsole] = useState(false);
   const consolePanelRef = useRef(null);
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { isSignedIn, user } = useUser();
   const clerk = useClerk();
   const [room, setRoom] = useState(uuidv4());
+
   // console.log("main", room);
   // if (!isLoaded || !userId) {
   //   return null;
   // }
   const editorRef = useRef(null);
 
-  const handleResize = useCallback((_, __, ___, delta) => {
-    setEditorHeight((prevHeight) => {
-      const newHeight = parseFloat(prevHeight) + delta.height;
-      return `${Math.max(10, Math.min(90, newHeight))}%`;
-    });
-    setConsoleHeight((prevHeight) => {
-      const newHeight = parseFloat(prevHeight) - delta.height;
-      return `${Math.max(10, Math.min(90, newHeight))}%`;
-    });
-  }, []);
-
   const toggleConsole = () => {
     setShowConsole(!showConsole);
-    if (consolePanelRef.current) {
-      if (showConsole) {
-        setEditorHeight("100%");
-        setConsoleHeight(0);
-      } else {
-        setEditorHeight("80%");
-        setConsoleHeight("20%");
-      }
-    }
   };
+
+  const [defaultLayout, setDefaultLayout] = useState([300, 400]); // Default layout
+
   const handleSubmitCode = () => {
     // console.log(editorRef.current.getValue());
     axios
@@ -81,7 +59,7 @@ export default function Home() {
           max_file_size: null,
           enable_network: null,
         },
-        { params: { wait: true } }// look at colon (:), its not recognizing need to encode in base64.
+        { params: { wait: true } } // look at colon (:), its not recognizing need to encode in base64.
       ) //wait params is set to true which synchronously waits for the output directly and not give a tracking token instead. This however is not recommended as per docs due to scaling issues.
       .then((res) => {
         console.log(res.data); //currently getting output directly as wait=true.
@@ -103,7 +81,7 @@ export default function Home() {
         <div className="text-black ">
           Hello, {userId} your current active session is {sessionId}
           {getToken}
-          <br></br>
+          <br />
           {console.log(user, "yup ")}
           the user is {user.username} and your email is{" "}
           {user.emailAddresses[0].emailAddress}
@@ -115,51 +93,34 @@ export default function Home() {
         setRoom={setRoom}
         handleSubmitCode={handleSubmitCode}
       />
-      <ResizablePanelGroup className="flex-1" direction="vertical">
-        <ResizablePanel
-          defaultSize={70}
-          minSize={50}
-          className="overflow-hidden"
-          size={editorHeight}
-          onResizeStop={handleResize}
-        >
-          {clerk.loaded && room != undefined && (
-            <MonacoEditor room={room} editorRef={editorRef} />
-          )}
-        </ResizablePanel>
-        {showConsole && ( // Conditionally render the console
-          <>
-            <ResizableHandle withHandle />
-            <ResizablePanel
-              defaultSize={30}
-              minSize={15}
-              ref={consolePanelRef}
-              size={consoleHeight}
-              onResizeStop={handleResize}
-              className="overflow-auto relative bg-zinc-800"
-            >
-              <div className="overflow-auto">
-                <Button
-                  onClick={toggleConsole}
-                  className="absolute top-2 right-2"
-                  size="sm"
-                >
-                  Close Console
-                </Button>
-                <InputOutput />
-              </div>
-            </ResizablePanel>
-          </>
+
+      <div className="flex h-screen flex-col items-center justify-center">
+        <MainLayout defaultLayout={defaultLayout} />
+      </div>
+
+      {/* <div className="flex-grow overflow-hidden">
+        {clerk.loaded && room && (
+          <MonacoEditor room={room} editorRef={editorRef} />
         )}
-      </ResizablePanelGroup>
+      </div>
+      {showConsole && (
+        <div className="bg-zinc-800 p-2">
+          <div className="flex justify-end items-center">
+            <Button onClick={toggleConsole} size="sm" variant="secondary">
+              Close Console
+            </Button>
+          </div>
+          <InputOutput />
+        </div>
+      )}
 
       {!showConsole && (
         <div className="h-14 flex items-center justify-center bg-zinc-800">
-          <Button variant="ghost" onClick={toggleConsole}>
+          <Button variant="secondary" onClick={toggleConsole}>
             Open Console
           </Button>
         </div>
-      )}
+      )} */}
     </main>
   );
 }

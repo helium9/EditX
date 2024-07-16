@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Avatar, AvatarGroup } from "@nextui-org/react";
 
-export default function UlilityBar({ room, setRoom, handleSubmitCode}) {
+export default function UlilityBar({ room, setRoom, handleSubmitCode }) {
   const roomRef = useRef(room);
   const handleRoomChange = (e) => {
     roomRef.current = e.target.value;
@@ -59,7 +59,11 @@ export default function UlilityBar({ room, setRoom, handleSubmitCode}) {
         <Button variant="link" className="text-slate-200">
           Pull
         </Button>
-        <Button variant="link" className="text-slate-200" onClick={handleSubmitCode}>
+        <Button
+          variant="link"
+          className="text-slate-200"
+          onClick={handleSubmitCode}
+        >
           Run
         </Button>
         <Button variant="link" className="text-slate-200">
@@ -114,14 +118,14 @@ export default function UlilityBar({ room, setRoom, handleSubmitCode}) {
         </Dialog>
       </div>
       <div className="hidden md:flex flex-col md:flex-row w-full justify-end pr-12">
-        <AvatarGroup isBordered size="sm" max={5}>
+        {/* <AvatarGroup isBordered size="sm" max={5}>
           <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
           <Avatar src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
           <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
           <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026302d" />
           <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
           <Avatar src="https://i.pravatar.cc/150?u=a04258114e2902670</AvatarGroup>8c" />
-        </AvatarGroup>
+        </AvatarGroup> */}
       </div>
     </div>
   );

@@ -1,28 +1,42 @@
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+import {
+  ResizablePanelGroup,
+  ResizablePanel,
+  ResizableHandle,
+} from "../ui/resizable";
 import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
 
 export default function InputOutput() {
   return (
-    <div className="flex flex-row gap-x-4 overflow-auto">
-      <div className="flex flex-col w-full gap-y-4">  
-        <Label htmlFor="input" className="m-2">
-          Inputs
+    <ResizablePanelGroup direction="horizontal" className="bg-zinc-600">
+      <ResizablePanel
+        defaultSize={50}
+        minSize={20}
+        className="flex flex-col p-4"
+      >
+        <Label text="Input" className="mb-2 text-white">
+          Input
         </Label>
-        <div className="ml-2 overflow-auto max-h-48">
-          <Textarea placeholder="Inputs" id="input" />
-        </div>
-        <Button className="ml-2">Run</Button>
-      </div>
-      <div className="flex flex-col w-full gap-y-4">
-        <Label htmlFor="output" className="m-2">
-          outputs
+        <textarea
+          className="flex-grow bg-white border-none rounded-md p-2 resize-none shadow-inner"
+          placeholder="Enter input here..."
+        />
+      </ResizablePanel>
+      <ResizableHandle className="bg-slate-100 cursor-row-resize" />
+      <ResizablePanel
+        defaultSize={50}
+        minSize={20}
+        className="flex flex-col p-4"
+      >
+        <Label text="Output" className="mb-2 text-white">
+          Output
         </Label>
-        <div className="mr-2 overflow-auto max-h-48">
-          <Textarea placeholder="Outputs" id="output" disabled />
-        </div>
-        <Button className="mr-2">Copy</Button>
-      </div>
-    </div>
+        <textarea
+          className="flex-grow bg-white border-none rounded-md p-2 resize-none shadow-inner"
+          placeholder="Output will be displayed here..."
+          readOnly // Typically, output fields are read-only
+        />
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 }
